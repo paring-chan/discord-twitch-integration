@@ -6,6 +6,7 @@
   "devDependencies": {
     "@types/node": "^14.14.16",
     "@types/tmi.js": "^1.4.2",
+    "@types/ws": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
     "concurrently": "^5.3.0",
@@ -22,7 +23,6 @@
     "discord.js": "^12.5.1",
     "dokdo": "^0.1.0",
     "tmi.js": "^1.7.1",
-    "twitch": "^4.3.6",
-    "twitch-pubsub-client": "^4.3.6"
+    "ws": "^7.4.1"
   }
 }
