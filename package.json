@@ -21,6 +21,8 @@
   "dependencies": {
     "discord.js": "^12.5.1",
     "dokdo": "^0.1.0",
-    "tmi.js": "^1.7.1"
+    "tmi.js": "^1.7.1",
+    "twitch": "^4.3.6",
+    "twitch-pubsub-client": "^4.3.6"
   }
 }

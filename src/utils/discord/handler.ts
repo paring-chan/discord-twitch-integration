@@ -4,7 +4,7 @@ import TWIClient from "../../structs/TWIClient";
 import config from '../../../config.json'
 
 async function handle(msg: Message, client: TWIClient) {
-    if (msg.channel.id === config.channels.discord) await client.tmi.say(config.channels.twitch, `[디스코드][${msg.author.tag}]: ${msg.content.length > 100 ? msg.content.slice(0,100) + '...' : msg.content}`)
+    if (msg.channel.id === config.channels.discord && (msg.content || msg.attachments.first())) await client.tmi.say(config.channels.twitch, `[디스코드][${msg.author.tag}]: ${msg.content && (msg.content.length > 100 ? msg.content.slice(0,100) + '...' : msg.content) || msg.attachments.first()?.url}`)
 }
 
 export default async (msg: Message, client: TWIClient) => {
