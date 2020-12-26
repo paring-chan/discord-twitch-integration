@@ -5,5 +5,9 @@
   },
   "tokens": {
     "discord": ""
+  },
+  "webhook": {
+    "id": "",
+    "secret": ""
   }
 }

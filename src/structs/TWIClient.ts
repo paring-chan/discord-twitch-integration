@@ -4,10 +4,34 @@ import Discord, {Team, User} from 'discord.js'
 import config from '../../config.json'
 import Dokdo from "dokdo";
 
+declare module 'discord.js' {
+    interface Client {
+        twi: TWIClient
+    }
+}
+
 export default class TWIClient {
     tmi: tmi.Client = tmi.Client({
         channels: [config.channels.twitch]
     })
+
+    loop = setInterval(this.sendWebhook.bind(this), 1000)
+
+    queue: string[] = []
+
+    async sendWebhook() {
+        if (!this.queue.length) return
+        let items: string[] = []
+        while (this.queue.length) {
+            const item = this.queue.shift()!
+            if (items.join('\n').length + item.length + 1 > 2000) {
+                this.queue.unshift(item)
+                break
+            }
+            items.push(item)
+        }
+        await this.webhook.send(items.join('\n'))
+    }
 
     owner: string[] = []
     dokdo?: Dokdo
@@ -20,10 +44,16 @@ export default class TWIClient {
                 name: config.channels.twitch
             }
         },
+        disableMentions: 'all',
+        restTimeOffset: 0
+    })
+
+    webhook = new Discord.WebhookClient(config.webhook.id, config.webhook.secret, {
         disableMentions: 'all'
     })
 
     constructor() {
+        this.discord.twi = this
         const init = require('../utils/init').default
         init(this)
     }
