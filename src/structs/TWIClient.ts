@@ -8,10 +8,8 @@ export default class TWIClient {
     })
 
     constructor() {
-        this.tmi.on('message', (channel, tag, msg, self) => {
-            if (self) return
-            console.log(msg)
-        })
+        const init = require('../utils/init').default
+        init(this)
     }
 
     async run() {
