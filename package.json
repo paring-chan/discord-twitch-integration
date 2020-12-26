@@ -10,5 +10,8 @@
     "eslint": "^7.16.0",
     "nodemon": "^2.0.6",
     "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "dev": "concurrently \"tsc --watch\" \"nodemon dist/index.js\""
   }
 }
