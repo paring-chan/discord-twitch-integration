@@ -22,7 +22,6 @@
   "dependencies": {
     "discord.js": "^12.5.1",
     "dokdo": "^0.1.0",
-    "tmi.js": "^1.7.1",
-    "ws": "^7.4.1"
+    "tmi.js": "^1.7.1"
   }
 }
