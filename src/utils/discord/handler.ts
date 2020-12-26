@@ -2,7 +2,7 @@ import {Message} from "discord.js";
 import TWIClient from "../../structs/TWIClient";
 // @ts-ignore
 import config from '../../../config.json'
-import {destroy} from "../pubsub";
+import {destroy} from "../notify";
 
 async function handle(msg: Message, client: TWIClient) {
     if (msg.channel.id === config.channels.discord && (msg.content || msg.attachments.first())) await client.tmi.say(config.channels.twitch, `[디스코드][${msg.author.tag}]: ${msg.content && (msg.content.length > 100 ? msg.content.slice(0,100) + '...' : msg.content) || msg.attachments.first()?.url}`)

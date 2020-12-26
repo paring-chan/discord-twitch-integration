@@ -12,6 +12,9 @@
   },
   "twitch": {
     "username": "",
-    "password": ""
-  }
+    "password": "",
+    "id": "",
+    "clientID": ""
+  },
+  "notifyMessage": ""
 }

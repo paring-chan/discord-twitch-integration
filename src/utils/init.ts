@@ -1,8 +1,8 @@
 import TWIClient from "../structs/TWIClient";
-import {start} from "./pubsub";
+import {start} from "./notify";
 
 export default (client: TWIClient) => {
-    start()
+    start(client)
     client.tmi.removeAllListeners()
     client.discord.removeAllListeners()
     client.tmi.on('message', (channel, tag, msg, self) => {
