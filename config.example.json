@@ -9,5 +9,9 @@
   "webhook": {
     "id": "",
     "secret": ""
+  },
+  "twitch": {
+    "username": "",
+    "password": ""
   }
 }

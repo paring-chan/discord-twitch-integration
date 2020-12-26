@@ -12,7 +12,11 @@ declare module 'discord.js' {
 
 export default class TWIClient {
     tmi: tmi.Client = tmi.Client({
-        channels: [config.channels.twitch]
+        channels: [config.channels.twitch],
+        identity: {
+            username: config.twitch.username,
+            password: config.twitch.password
+        }
     })
 
     loop = setInterval(this.sendWebhook.bind(this), 1000)
