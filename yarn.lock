@@ -494,6 +494,11 @@ date-fns@^2.0.1:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
 
+dayjs@^1.9.6:
+  version "1.9.7"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.7.tgz#4b260bb17dceed2d5f29038dfee03c65a6786fc0"
+  integrity sha512-IC877KBdMhBrCfBfJXHQlo0G8keZ0Opy7YIIq5QKtUbCuHMzim8S4PyiVK4YmihI3iOF9lhfUBW4AQWHTR5WHA==
+
 debug@^2.2.0:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -579,6 +584,15 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+dokdo@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/dokdo/-/dokdo-0.1.0.tgz#36e6a8d1fdb0681899b1726c021f599576588d42"
+  integrity sha512-IRXQ+X3ggP8OieUiVOIBcQyMYxiv54Sg/Vpfjqnr1OjVjjUQiBy0SGrYu1hWl663zNOljoc7snV2F11KIwpCDg==
+  dependencies:
+    dayjs "^1.9.6"
+    discord.js "^12.5.1"
+    node-fetch "^2.6.1"
 
 dot-prop@^5.2.0:
   version "5.3.0"

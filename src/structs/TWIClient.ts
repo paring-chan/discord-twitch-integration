@@ -2,6 +2,7 @@ import tmi from 'tmi.js'
 import Discord, {Team, User} from 'discord.js'
 // @ts-ignore
 import config from '../../config.json'
+import Dokdo from "dokdo";
 
 export default class TWIClient {
     tmi: tmi.Client = tmi.Client({
@@ -9,6 +10,7 @@ export default class TWIClient {
     })
 
     owner: string[] = []
+    dokdo?: Dokdo
 
     discord: Discord.Client = new Discord.Client({
         presence: {
@@ -17,7 +19,8 @@ export default class TWIClient {
                 url: 'https://twitch.tv/' + config.channels.twitch,
                 name: config.channels.twitch
             }
-        }
+        },
+        disableMentions: 'all'
     })
 
     constructor() {
@@ -36,6 +39,14 @@ export default class TWIClient {
         } else if (app.owner instanceof User) {
             this.owner = [app.owner.id]
         }
+        this.dokdo = new Dokdo(this.discord, {
+            prefix: '#',
+            owners: this.owner,
+            noPerm(msg) {
+                return msg.react('❌')
+            },
+        })
+        this.discord.on('message', this.dokdo.run.bind(this.dokdo))
         console.log(`Connected to discord`)
     }
 }
