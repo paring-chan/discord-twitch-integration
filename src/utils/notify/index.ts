@@ -24,7 +24,9 @@ export function start(client: TWIClient) {
         } else {
             if (!streaming) {
                 streaming = true
-                await client.webhook.send(config.notifyMessage)
+                await client.webhook.send(config.notifyMessage, {
+                    disableMentions: 'none',
+                })
             }
         }
     }, 10000)
