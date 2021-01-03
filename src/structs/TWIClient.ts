@@ -3,6 +3,9 @@ import Discord, {Team, User} from 'discord.js'
 // @ts-ignore
 import config from '../../config.json'
 import Dokdo from "dokdo";
+import TwitchChannel from "./TwitchChannel";
+import {ApiClient, ClientCredentialsAuthProvider} from "twitch";
+import {SimpleAdapter, WebHookListener} from "twitch-webhooks";
 
 declare module 'discord.js' {
     interface Client {
@@ -11,61 +14,42 @@ declare module 'discord.js' {
 }
 
 export default class TWIClient {
-    tmi: tmi.Client = tmi.Client({
-        channels: [config.channels.twitch],
-        identity: {
-            username: config.twitch.username,
-            password: config.twitch.password
-        }
-    })
-
-    loop = setInterval(this.sendWebhook.bind(this), 1000)
-
-    queue: string[] = []
-
-    async sendWebhook() {
-        if (!this.queue.length) return
-        let items: string[] = []
-        while (this.queue.length) {
-            const item = this.queue.shift()!
-            if (items.join('\n').length + item.length + 1 > 2000) {
-                this.queue.unshift(item)
-                break
-            }
-            items.push(item)
-        }
-        await this.webhook.send(items.join('\n'))
-    }
-
     owner: string[] = []
     dokdo?: Dokdo
+    channels: TwitchChannel[]
+    twitchAuthProvider = new ClientCredentialsAuthProvider(config.twitch.clientID, config.twitch.clientSecret)
+    twitchAPIClient = new ApiClient({authProvider: this.twitchAuthProvider})
+    webhookListener = new WebHookListener(this.twitchAPIClient, new SimpleAdapter(config.twitch.webhook))
+    tmi: tmi.Client
 
     discord: Discord.Client = new Discord.Client({
         presence: {
             activity: {
                 type: 'STREAMING',
-                url: 'https://twitch.tv/' + config.channels.twitch,
-                name: config.channels.twitch
+                url: 'https://twitch.tv/chinokafuu1204',
+                name: 'TWITCH'
             }
         },
         disableMentions: 'all',
         restTimeOffset: 0
     })
 
-    webhook = new Discord.WebhookClient(config.webhook.id, config.webhook.secret, {
-        disableMentions: 'all'
-    })
-
     constructor() {
         this.discord.twi = this
-        const init = require('../utils/init').default
-        init(this)
+        this.channels = config.channels.map((it: any) => new TwitchChannel(it))
+        this.tmi = tmi.Client({
+            channels: config.channels.map((it: any) => it.twitch),
+            identity: {
+                username: config.twitch.username,
+                password: config.twitch.password
+            }
+        })
     }
 
     async run() {
-        await this.tmi.connect().then(() => {
-            console.log('Connected to Twitch.')
-        })
+        await this.webhookListener.listen()
+        const init = require('../utils/init').default
+        await init(this)
         await this.discord.login(config.tokens.discord)
         const app = await this.discord.fetchApplication()
         if (app.owner instanceof Team) {

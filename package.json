@@ -24,6 +24,9 @@
     "discord.js": "^12.5.1",
     "dokdo": "^0.1.0",
     "node-fetch": "^2.6.1",
-    "tmi.js": "^1.7.1"
+    "tmi.js": "^1.7.1",
+    "twitch": "^4.3.8",
+    "twitch-auth": "^4.3.8",
+    "twitch-webhooks": "^4.3.8"
   }
 }

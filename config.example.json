@@ -1,20 +1,26 @@
 {
-  "channels": {
-    "discord": "",
-    "twitch": ""
-  },
   "tokens": {
     "discord": ""
-  },
-  "webhook": {
-    "id": "",
-    "secret": ""
   },
   "twitch": {
     "username": "",
     "password": "",
-    "id": "",
-    "clientID": ""
+    "clientID": "",
+    "clientSecret": "",
+    "webhook": {
+      "hostName": "",
+      "listenerPort": 8090
+    }
   },
-  "notifyMessage": ""
+  "channels": [
+    {
+      "discord": "",
+      "twitch": "",
+      "webhook": {
+        "id": "",
+        "secret": ""
+      },
+      "notifyMessage": ""
+    }
+  ]
 }
