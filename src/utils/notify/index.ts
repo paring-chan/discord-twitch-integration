@@ -26,7 +26,18 @@ export async function start(client: TWIClient, channel: TwitchChannel) {
                     embeds: [
                         new MessageEmbed().setTitle(stream.title).addField('카테고리', stream.gameId, true).addField('시청자 수', stream.viewers, true)
                             .setImage(stream.thumbnailUrl).setURL(`https://twitch.tv/${channel.channel.twitch}`)
-                    ]
+                    ],
+                    disableMentions: 'none'
+                })
+            }
+        } else {
+            if (channel.stream) {
+                await channel.webhook.send({
+                    embeds: [
+                        new MessageEmbed().setTitle('방송 끝').addField('시청자 수', channel.stream.viewers, true)
+                            .setImage(channel.stream.thumbnailUrl).setURL(`https://twitch.tv/${channel.channel.twitch}`)
+                    ],
+                    disableMentions: 'none'
                 })
             }
         }
