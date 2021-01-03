@@ -24,11 +24,14 @@ export async function start(client: TWIClient, channel: TwitchChannel) {
             if (!channel.stream) {
                 await channel.webhook.send(channel.channel.notifyMessage, {
                     embeds: [
-                        new MessageEmbed().setTitle(stream.title).addField('카테고리', stream.gameId, true).addField('시청자 수', stream.viewers, true)
+                        new MessageEmbed().setTitle(stream.title).addField('카테고리', await stream.getGame().then(r=>r?.name), true).addField('시청자 수', stream.viewers, true)
                             .setImage(stream.thumbnailUrl).setURL(`https://twitch.tv/${channel.channel.twitch}`)
                     ],
                     disableMentions: 'none'
                 })
+            } else {
+                await channel.webhook.send(new MessageEmbed().setTitle(stream.title).addField('카테고리', await stream.getGame().then(r=>r?.name), true).addField('시청자 수', stream.viewers, true)
+                    .setImage(stream.thumbnailUrl).setURL(`https://twitch.tv/${channel.channel.twitch}`))
             }
         } else {
             if (channel.stream) {
