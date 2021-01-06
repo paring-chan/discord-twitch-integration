@@ -55,3 +55,6 @@ npx tsc
 ```shell
 node dist
 ```
+
+
+\+ 궁금한게 있으시다면 이메일(pikokr@piko.app) 또는 디스코드(https://discord.gg/3c5K4pf)에서 질문해주세요!
